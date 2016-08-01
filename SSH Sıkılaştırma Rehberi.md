@@ -31,7 +31,7 @@ PermitRootLogin no
 AllowUsers mahmut admin
 ```
 
-2. Güvenliği artırmak için başka bir yöntem de ssh üzerinden şifreyle giriş yapılmasını devre dışı bırakmaktır. Kendinize has RSA anahtarını kullanarak giriş yapabilirsiniz bu sayede güvenlik seviyeniz bir adım daha artacaktır.
+2) Güvenliği artırmak için başka bir yöntem de ssh üzerinden şifreyle giriş yapılmasını devre dışı bırakmaktır. Kendinize has RSA anahtarını kullanarak giriş yapabilirsiniz bu sayede güvenlik seviyeniz bir adım daha artacaktır.
  * Uzaktaki Linux sisteme erişirken kullanmak istediğimiz Linux ortamda aşağıdaki komutları uygulayarak önce RSA kimliği için key oluşturuyoruz daha sonra da bunu uzak sunucuya kopyalıyoruz. Bundan sonra giriş yaparken şifre kullanmadan giriş yapabilirsiniz.
 ```bash
 ssh-keygen -t rsa
@@ -49,7 +49,7 @@ PasswordAuthentication no
 şeklinde düzeltin. Böylece uzaktaki Linux sisteminize bağlanırken sadece oluşturduğunuz RSA anahtarı kullanılabilir.
  * Bu arada RSA anahtarlarının erişim izinlerini _chmod_ komutunu kullanarak düzenlemeyi de unutmayın. Burada detaylı bilgi vermeye gerek duymuyorum.
 
-3. SSH sunucusunu aksi gerekmedikçe sadece kullandığınız internet protokünü kullanacak şekilde konfigüre edin.
+3) SSH sunucusunu aksi gerekmedikçe sadece kullandığınız internet protokünü kullanacak şekilde konfigüre edin.
  * Bunu yapmak için herhangi bir text editör ile (kişisel tercihim vim) açarak:
 ```bash
 vim /etc/ssh/sshd_config
@@ -66,7 +66,7 @@ AddressFamily inet
 
  * Daha sonra 1. adımda anlatıldığı gibi ssh daemon'ı yeniden başlatmayı unutmayın.
 
-4. SSH sunucunun dinlediği varsayılan portunu 22'den farklı bir portla değiştirin. Böylece 22 portuna gelen otomatikleştirilmiş ssh ataklarından korunmuş olursunuz.
+4) SSH sunucunun dinlediği varsayılan portunu 22'den farklı bir portla değiştirin. Böylece 22 portuna gelen otomatikleştirilmiş ssh ataklarından korunmuş olursunuz.
  * Bunun için 1. adımda anlatıldığı gibi sshd_config dosyasını düzenlemek için açın ve port numarasını kullanılmadığından emin olduğunuz bir port numarasıyla değiştirin. Örn:
 ```bash
 Port 22
@@ -80,7 +80,7 @@ Port 54322
  * Daha sonra ssh sunucuyu yeniden başlatmayı ihmal etmeyin.
 
 
-5. Kullanılan ssh protokolü de güvenlik açısından çok önemlidir. SSH protokol versiyonu 1'in (SSH-1) araya girme atakları (man-in-the-middle attacks) açısından ciddi güvenlik zafiyetleri bulunmaktadır. Bu yüzden konfigürasyon dosyanızı düzenleyerek _Protocol 2_'nin kullanıldığından emin olun.
+5) Kullanılan ssh protokolü de güvenlik açısından çok önemlidir. SSH protokol versiyonu 1'in (SSH-1) araya girme atakları (man-in-the-middle attacks) açısından ciddi güvenlik zafiyetleri bulunmaktadır. Bu yüzden konfigürasyon dosyanızı düzenleyerek _Protocol 2_'nin kullanıldığından emin olun.
  * sshd_config dosyasının ilgili satırını aşağıdaki şekilde düzeltin:
 ```bash
 Protocol 2
@@ -88,7 +88,7 @@ Protocol 2
 
  * Daha sonra sunucuyu yeniden başlatmayı unutmayın.
 
-6. Başka bir güvenlik artırıcı önlem olarak hiçbir işlem yapılmadan belli bir süreyi geçen oturumları sonlandırmak için konfigürasyon yapabilirsiniz. Bunun için sshd_config dosyasında aşağıdaki örneğe göre düzenlemeler yapabilirsiniz. Örn:
+6) Başka bir güvenlik artırıcı önlem olarak hiçbir işlem yapılmadan belli bir süreyi geçen oturumları sonlandırmak için konfigürasyon yapabilirsiniz. Bunun için sshd_config dosyasında aşağıdaki örneğe göre düzenlemeler yapabilirsiniz. Örn:
 ```bash
 ClientAliveInterval 600
 ClientAliveCountMax 0
@@ -97,25 +97,25 @@ ClientAliveCountMax 0
 
  * Değişikliği yaptıktan sonra ssh daemon'ı yeniden başlatmayı unutmayın.
 
-7. RSH üzerinden givensiz erişimi devre dışı bırakın. Bunu yapmak için sshd_config dosyasında ilgili konfigürasyon satırını aşağıdaki gibi düzeltebilirsiniz:
+7) RSH üzerinden givensiz erişimi devre dışı bırakın. Bunu yapmak için sshd_config dosyasında ilgili konfigürasyon satırını aşağıdaki gibi düzeltebilirsiniz:
 ```bash
 IgnoreRhosts yes
 ```
 
-8. Host tabanlı kimlik doğrulamayı devre dışı bırakın. Bunu yapmak için sshd_config dosyasında ilgili konfigürasyon satırını aşağıdaki gibi düzeltebilirsiniz:
+8) Host tabanlı kimlik doğrulamayı devre dışı bırakın. Bunu yapmak için sshd_config dosyasında ilgili konfigürasyon satırını aşağıdaki gibi düzeltebilirsiniz:
 ```bash
 HostbasedAuthentication no
 ```
 
-9. Bağlantıların kabul edileceği IP adreslerini belireyerek de güvenliği artırabilirsiniz. Örn:
+9) Bağlantıların kabul edileceği IP adreslerini belireyerek de güvenliği artırabilirsiniz. Örn:
 ```bash
 ListenAddress 192.168.1.15
 ```
 
-10. SSHD'yi chroot yaparak oturum açan kullanıcıyı kendi home dizinine hapsetmek de güvenlik seviyesini bir adım öteye taşıyabilir. OpenSSH'ın son versiyonları (4.8 sonrası) bunu üçüncü parti uygulamalara gerek kalmadan sağlıyor. Detaylı bilgi vermek için uzun bir konu olduğundan bu kadar değiniyorum.
+10) SSHD'yi chroot yaparak oturum açan kullanıcıyı kendi home dizinine hapsetmek de güvenlik seviyesini bir adım öteye taşıyabilir. OpenSSH'ın son versiyonları (4.8 sonrası) bunu üçüncü parti uygulamalara gerek kalmadan sağlıyor. Detaylı bilgi vermek için uzun bir konu olduğundan bu kadar değiniyorum.
 
-11. Kaba kuvvet saldırılarını engellemek için Fail2Ban gibi araçlar kullanarak başarısız olan ardışık oturum açma teşebbüslerini kontrol altına alabilirsiniz.
+11) Kaba kuvvet saldırılarını engellemek için Fail2Ban gibi araçlar kullanarak başarısız olan ardışık oturum açma teşebbüslerini kontrol altına alabilirsiniz.
 
-12. Yerel güvenlik duvarı "iptables" üzerinde ssh portuna gelen bağlantıları sınırlandırabilirsiniz. Bu madde 9. maddeyle birlikte değerlendirilebilir. Bu yüzden iptables komutlarıyla ilgili detaylı bilgi vermiyorum.
+12) Yerel güvenlik duvarı "iptables" üzerinde ssh portuna gelen bağlantıları sınırlandırabilirsiniz. Bu madde 9. maddeyle birlikte değerlendirilebilir. Bu yüzden iptables komutlarıyla ilgili detaylı bilgi vermiyorum.
 
-13. Son olarak işletim sisteminizi ve OpenSSH sunucunuzu daima güncel tutun ve güvenlik yamalarını muhakkak uygulayın.
+13) Son olarak işletim sisteminizi ve OpenSSH sunucunuzu daima güncel tutun ve güvenlik yamalarını muhakkak uygulayın.
