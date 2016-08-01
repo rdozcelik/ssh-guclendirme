@@ -27,7 +27,7 @@ PermitRootLogin no
 ```
 
  * Bu adımla ilgili güvenlik önlemini bir adım daha öteye taşımak için konfigürasyon dosyasında giriş yapmasına izin verilen kullanıcıları özellikle belirtebilirsiniz. Bunun için sshd_config dosyasında ilgili satırı aşağıdaki örneğe göre düzenleyip ssh sunucuyu yeniden başlatabilirsiniz. Örn:
- ```bash
+```bash
 AllowUsers mahmut admin
 ```
 
@@ -39,9 +39,9 @@ ssh-copy-id -i ~/.ssh/id_rsa.pub user@remoteserver.address
 ```
 
  * Daha sonra uzak Linux sunucunuza bağlanarak
- ```bash
+```bash
  #PasswordAuthentication yes
- ```
+```
 olan kısmı
 ```bash
 PasswordAuthentication no
