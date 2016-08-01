@@ -5,7 +5,7 @@ SSH (Secure Shell) temel olarak uzaktan Linux sunuculara bağlanıp dosya transf
 Bu yazıda ben sizlere bu protokolü çalıştırırken güvenliğini artırmaya yönelik olarak OpenSSH Server ile ilgili önlemleri açıklamaya çalışacağım.
 
 
-##1 Genellikle Linux sistemler varsayılan olarak bütün kullanıcıların ssh üzerinden bağlanabileceği şekilde gelirler. Tabi bu kullanıcılar arasında root kullanıcısı da vardır. Güvenliği bir kademe artırmak için root kullanıcısının uzaktan ssh bağlantısı yapmasını devre dışı bırakmak daima iyi bir yöntemdir.
+1 Genellikle Linux sistemler varsayılan olarak bütün kullanıcıların ssh üzerinden bağlanabileceği şekilde gelirler. Tabi bu kullanıcılar arasında root kullanıcısı da vardır. Güvenliği bir kademe artırmak için root kullanıcısının uzaktan ssh bağlantısı yapmasını devre dışı bırakmak daima iyi bir yöntemdir.
 Çünkü hackerlar sistemlere girebilmek için daima kaba kuvvet saldırılarını denerler. Bu saldırılarda da ilk hedef root kullanıcısı olacaktır.
 root kullanıcısının ssh üzerinden giriş yetkisini devre dışı bırakmak için aşağıdaki adımlar Linux komut satırında (bash vs.) uygulanmalıdır:
  * Konfigürasyon dosyası herhangi bir text editör ile açılır:
